@@ -11,7 +11,6 @@ const bannerBg = {
     backgroundSize: 'cover',
     backgroundPosition: 'bottom',
     marginTop: '20px'
-
 }
 const verticalCenter = {
     display: 'flex',
