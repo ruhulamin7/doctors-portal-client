@@ -14,7 +14,7 @@ const appointmentBanner = {
 
 const AppointmentBanner = () => {
     return (
-        <Box style={appointmentBanner} sx={{ flexGrow: 1 }}>
+        <Box style={appointmentBanner} sx={{ flexGrow: 1, my: 10 }}>
             <Container>
                 <Grid container spacing={2} >
                     <Grid item xs={12} md={6} >
@@ -27,7 +27,7 @@ const AppointmentBanner = () => {
                         alignItems: 'center'
                     }}>
                         <Box>
-                            <Typography variant="h6" sx={{ mb: 3 }} style={{ color: "#4BD1D3" }} >
+                            <Typography variant="h6" sx={{ mb: 3 }} style={{ color: "#1cc7c1" }} >
                                 Appointment
                             </Typography>
                             <Typography variant="h4" style={{ color: 'white' }} >
@@ -36,7 +36,7 @@ const AppointmentBanner = () => {
                             <Typography variant="h6" sx={{ my: 3 }} style={{ color: 'white', fontSize: 14, fontWeight: 300 }}>
                                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem ullam placeat ex blanditiis iusto excepturi. Consequuntur beatae commodi velit sint.
                             </Typography>
-                            <Button variant="contained" style={{ backgroundColor: '#4BD1D3' }}>Learn More</Button>
+                            <Button variant="contained" style={{ backgroundColor: '#1cc7c1', }} sx={{ m: 4 }}>Learn More</Button>
                         </Box>
 
                     </Grid>

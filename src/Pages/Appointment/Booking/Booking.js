@@ -13,7 +13,7 @@ const Booking = ({ booking, date }) => {
         <>
             <Grid item xs={12} sm={6} md={4}>
                 <Paper elevation={3} sx={{ py: 3 }}>
-                    <Typography style={{ color: '#4BD1D3', fontWeight: 600 }} variant="h5" gutterBottom component="div">
+                    <Typography style={{ color: '#1cc7c1', fontWeight: 600 }} variant="h5" gutterBottom component="div">
                         {name}
                     </Typography>
                     <Typography variant="h6" gutterBottom component="div">
@@ -22,7 +22,7 @@ const Booking = ({ booking, date }) => {
                     <Typography variant="caption" display="block" gutterBottom>
                         {space} SPACES AVAILABLE
                     </Typography>
-                    <Button onClick={handleBookingOpen} style={{ backgroundColor: '#4BD1D3', color: 'white' }} variant="contained">BOOK APPOINTMENT</Button>
+                    <Button onClick={handleBookingOpen} style={{ backgroundColor: '#1cc7c1', color: 'white' }} variant="contained">BOOK APPOINTMENT</Button>
                 </Paper>
             </Grid>
             <BookingModal openBooking={openBooking}
