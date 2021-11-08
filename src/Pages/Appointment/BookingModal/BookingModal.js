@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const style = {
     position: 'absolute',
@@ -20,18 +21,58 @@ const style = {
     p: 4,
 };
 
-const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
+const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
     const { name, time } = booking;
     const { user } = useAuth()
 
+
+    const initialInfo = { patientName: user.displayName, email: user.email, phone: '' }
+    const [bookingInfo, setBookingInfo] = useState(initialInfo)
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newInfo = { ...bookingInfo }
+        newInfo[field] = value;
+        setBookingInfo(newInfo)
+    }
+    // console.log(bookingInfo);
+
     const handleBookingSubmit = e => {
-        alert('submitting');
+        e.preventDefault();
 
         // collect data
-        // send to the server
+        const appointment = {
+            ...bookingInfo,
+            time,
+            serviceName: name,
+            date: date.toLocaleDateString()
 
-        handleBookingClose();
-        e.preventDefault();
+        }
+        // console.log(appointment);
+        // send to the server
+        fetch('http://localhost:5000/appointments', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(appointment)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    // alert('booking Successfull')
+
+                    Swal.fire(
+                        'Appointment Booked Successfully !',
+                        'Thank You',
+                        'success'
+                    )
+                    setBookingSuccess(true)
+                    handleBookingClose();
+
+                }
+            })
+
     }
 
     return (
@@ -62,20 +103,26 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                         <TextField
                             sx={{ width: '90%', m: 1 }}
                             id="outlined-size-small"
+                            name="patientName"
                             defaultValue={user.displayName}
                             size="small"
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             sx={{ width: '90%', m: 1 }}
                             id="outlined-size-small"
+                            name="email"
                             defaultValue={user.email}
                             size="small"
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             sx={{ width: '90%', m: 1 }}
                             id="outlined-size-small"
+                            name="phone"
                             defaultValue="Phone Number"
                             size="small"
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             disabled
