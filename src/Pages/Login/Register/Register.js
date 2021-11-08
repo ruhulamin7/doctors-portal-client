@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation, useHistory } from 'react-router';
 import Grid from '@mui/material/Grid';
 import { Button, Container, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -12,28 +13,36 @@ import Stack from '@mui/material/Stack';
 
 
 const Register = () => {
-    const { registerUser, isLoading, user, authError } = useAuth()
+    const { registerUser, isLoading, user, authError, signInWithGoogle } = useAuth()
     const [loginData, setLoginData] = useState({});
 
-    const handleOnChange = (e) => {
+    const handleOnBlur = (e) => {
         const field = e.target.name;
         const value = e.target.value;
         const newLoginData = { ...loginData };
         newLoginData[field] = value;
         setLoginData(newLoginData);
     }
-    // newLoginData = {}
-    // newLoginData["email"] = value
-    // newLoginData = {email:value}
+    // console.log(loginData);
+
+    const location = useLocation()
+    const history = useHistory()
+
     const handleRegisterSubmit = e => {
         if (loginData.password !== loginData.password2) {
             alert('Your password did not match')
             return
         }
-        registerUser(loginData.email, loginData.password)
-
+        registerUser(loginData.email, loginData.password, loginData.name, history)
         e.preventDefault()
     }
+
+
+    const handleGoogleLogin = () => {
+        signInWithGoogle(location, history)
+    }
+
+
     return (
         <Container sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -43,11 +52,20 @@ const Register = () => {
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
+                            label="Your Name"
+                            variant="standard"
+                            type="text"
+                            name="name"
+                            onBlur={handleOnBlur}
+                        />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
                             label="Your Email"
                             variant="standard"
                             type="email"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -56,7 +74,7 @@ const Register = () => {
                             variant="standard"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -65,13 +83,16 @@ const Register = () => {
                             variant="standard"
                             type="password"
                             name="password2"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <Button sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Regiser</Button>
                         <NavLink to="/login">
                             <Button variant="text">Already Registered? Pleaser Login</Button>
                         </NavLink>
                     </form>}
+                    <p>======================</p>
+
+                    <Button onClick={handleGoogleLogin} variant="contained">Sign in with google</Button>
                     {isLoading && <LinearProgress />}
                     {user.email && <Alert severity="success">Registration Successfull —Please check it out!</Alert>
                     }

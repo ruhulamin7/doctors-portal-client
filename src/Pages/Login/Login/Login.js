@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
-    const { isLoading, user, authError, loginUser } = useAuth()
+    const { isLoading, user, authError, loginUser, signInWithGoogle } = useAuth()
 
 
     const location = useLocation()
@@ -18,7 +18,7 @@ const Login = () => {
 
 
 
-    const handleOnChange = (e) => {
+    const handleOnBlur = (e) => {
         const field = e.target.name;
         const value = e.target.value;
         const newLoginData = { ...loginData };
@@ -29,8 +29,11 @@ const Login = () => {
 
     const handleLoginSubmit = e => {
         loginUser(loginData.email, loginData.password, location, history)
-
         e.preventDefault()
+    }
+
+    const handleGoogleLogin = () => {
+        signInWithGoogle(location, history)
     }
 
     return (
@@ -46,7 +49,7 @@ const Login = () => {
                             variant="standard"
                             type="email"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -55,13 +58,17 @@ const Login = () => {
                             variant="standard"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <Button sx={{ width: '75%', m: 1 }} type="submit" variant="contained">Login</Button>
                         <NavLink to="/register">
                             <Button variant="text">New User? Pleaser Register</Button>
                         </NavLink>
                     </form>
+                    <p>======================</p>
+
+                    <Button onClick={handleGoogleLogin} variant="contained">Sign in with google</Button>
+
                     {isLoading && <LinearProgress />}
                     {user.email && <Alert severity="success">Login Successfull !</Alert>
                     }
