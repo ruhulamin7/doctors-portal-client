@@ -10,6 +10,7 @@ import Appointment from './Pages/Appointment/Appointment/Appointment';
 import Login from './Pages/Login/Login/Login';
 import Register from './Pages/Login/Register/Register';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 
 
 
@@ -26,9 +27,9 @@ function App() {
             <Route exact path="/home">
               <Home />
             </Route>
-            <Route exact path="/appointment">
+            <PrivateRoute exact path="/appointment">
               <Appointment />
-            </Route>
+            </PrivateRoute>
             <Route exact path="/login">
               <Login />
             </Route>

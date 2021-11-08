@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation, useHistory } from 'react-router';
 import Grid from '@mui/material/Grid';
 import { Button, Container, Typography, LinearProgress, Alert } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -11,6 +12,12 @@ const Login = () => {
     const [loginData, setLoginData] = useState({});
     const { isLoading, user, authError, loginUser } = useAuth()
 
+
+    const location = useLocation()
+    const history = useHistory()
+
+
+
     const handleOnChange = (e) => {
         const field = e.target.name;
         const value = e.target.value;
@@ -21,7 +28,7 @@ const Login = () => {
     }
 
     const handleLoginSubmit = e => {
-        loginUser(loginData.email, loginData.password)
+        loginUser(loginData.email, loginData.password, location, history)
 
         e.preventDefault()
     }
