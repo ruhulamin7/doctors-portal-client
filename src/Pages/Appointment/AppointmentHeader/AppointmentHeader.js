@@ -12,7 +12,7 @@ const bannerBg = {
     marginTop: '20px',
     height: '500px'
 }
-const AppointmentHeadet = ({ date, setDate }) => {
+const AppointmentHeader = ({ date, setDate }) => {
 
     return (
         <Container style={bannerBg}>
@@ -34,4 +34,4 @@ const AppointmentHeadet = ({ date, setDate }) => {
     );
 };
 
-export default AppointmentHeadet;
+export default AppointmentHeader;

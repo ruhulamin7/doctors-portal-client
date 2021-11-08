@@ -1,7 +1,8 @@
 
 import React from 'react';
+import Footer from '../../Shared/Footer/Footer';
 import Navigation from '../../Shared/Navigation/Navigation';
-import AppointmentHeadet from '../AppointmentHeader/AppointmentHeadet';
+import AppointmentHeader from '../AppointmentHeader/AppointmentHeader';
 import AvailableAppointment from '../AvailableAppointment/AvailableAppointment';
 
 const Appointment = () => {
@@ -9,8 +10,9 @@ const Appointment = () => {
     return (
         <div>
             <Navigation></Navigation>
-            <AppointmentHeadet date={date} setDate={setDate}></AppointmentHeadet>
+            <AppointmentHeader date={date} setDate={setDate}></AppointmentHeader>
             <AvailableAppointment date={date}></AvailableAppointment>
+            <Footer></Footer>
         </div>
     );
 };
